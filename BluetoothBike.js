@@ -32,6 +32,7 @@ async function BluetoothCSCMeasurement() {
         });
         await device.gatt.connect();
         let service = await device.gatt.getPrimaryService("cycling_speed_and_cadence");
+        device.addEventListener('gattserverdisconnected',BluetoothCSCMeasurement);
         let cycling_measurement = await service.getCharacteristic('csc_measurement');
         let cycling_measurement_char = await cycling_measurement.startNotifications();
         let last_measurement = null;
